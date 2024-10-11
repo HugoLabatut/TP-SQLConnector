@@ -22,7 +22,7 @@ public class TPSQLConnector {
                     null);
             if(transport instanceof Voiture) {
                 Voiture voiture = (Voiture) transport;
-                voiture.updateVoiture(3, "Peugeot", "208", 120, 240, "SS-045-EZ", 1.5);
+                voiture.selectAllVoitures();
             }
             con.close();
         } catch (ClassNotFoundException e) {

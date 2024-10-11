@@ -75,6 +75,65 @@ public class Voiture implements Transport{
 
     // Fonctions & Procédures autres
 
+    public void selectVoiture(int id) {
+        try {
+            String query = "SELECT * FROM voiture WHERE id_voiture = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                String marque = rs.getString("marque_voiture");
+                String modele = rs.getString("modele_voiture");
+                int vitesse = rs.getInt("vitesse_voiture");
+                int vitesseMax = rs.getInt("vitesse_max_voiture");
+                String immat = rs.getString("num_immat_voiture");
+                double cylindree = rs.getDouble("cylindree_voiture");
+
+                System.out.println("Marque: " + marque + ", Modèle: " + modele + ", Vitesse: " + vitesse + ", Vitesse max: " + vitesseMax + ", Immat: " + immat + ", Cylindrée: " + cylindree);
+            }
+            pstmt.close();
+        } catch (SQLException e) {
+            System.out.println("Erreur quant à la recherche des données : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void selectAllVoitures() {
+        try {
+            String query = "SELECT * FROM voiture";
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            System.out.println("ID: - Marque: - Modèle: - Vitesse: - Vitesse max: - Immat.: - Cylindrée:");
+            while (rs.next()) {
+                int id = rs.getInt("id_voiture");
+                String marque = rs.getString("marque_voiture");
+                String modele = rs.getString("modele_voiture");
+                int vitesse = rs.getInt("vitesse_voiture");
+                int vitesseMax = rs.getInt("vitesse_max_voiture");
+                String immat = rs.getString("num_immat_voiture");
+                double cylindree = rs.getDouble("cylindree_voiture");
+
+                System.out.println(id + ", " + marque + ", " + modele + ", " + vitesse + ", " + vitesseMax + ", " + immat + ", " + cylindree);
+            }
+            stmt.close();
+        } catch (SQLException e) {
+            System.out.println("Erreur quant à la recherche des données : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteVoiture(int id) {
+        try {
+            String query = "DELETE FROM voiture WHERE id_voiture = ?";
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setInt(1,  id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Erreur quant à la suppression des données : " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
     public void insertVoiture() {
         try {
             String query = "INSERT INTO voiture (marque_voiture, modele_voiture, vitesse_voiture, vitesse_max_voiture, num_immat_voiture, cylindree_voiture) VALUES(?,?,?,?,?,?)";

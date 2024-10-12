@@ -19,6 +19,14 @@ public class TransportFactory {
                 Voiture voiture = new Voiture(marque, modele, vitesse, vmax, immat, cylindree, con);
                 voiture.insertVoiture();
                 return voiture;
+            case "avion":
+                Avion avion = new Avion(marque, modele, vitesse, vmax, altitude, altitudemax, portee, con);
+                avion.insertAvion();
+                return avion;
+            case "bateau":
+                Bateau bateau = new Bateau(marque, modele, vitesse, vmax, tirant_deau, nbrevoile, con);
+                bateau.insertBateau();
+                return bateau;
             default:
                 return null;
         }
